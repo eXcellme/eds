@@ -1,0 +1,12 @@
+dispatchers:
+  list:
+    - name: demoRouter
+      from: d.demo
+      fromProtocol: activemq
+      concurrencyMin: 1
+      concurrencyMax: 100
+      to:
+        - l.demo1
+        - l.demo2
+      toProtocol: activemq 
+

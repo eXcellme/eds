@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration
+	status="info" strict="true" name="edsConf"
+	monitorInterval="5">
+	<Properties>
+		<Property name="baseDir">/data/www/logs/eds-consumer-${sys:spring.profiles.active}</Property>
+	</Properties>
+	<Appenders>
+		<!-- 错误日志 -->
+		<RollingFile name="ERROR-APPENDER" fileName="${baseDir}/error/error.log"
+			filePattern="${baseDir}/error/error_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%c{1.}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- consume错误日志 -->
+		<RollingFile name="CONSUME-ERROR-APPENDER" fileName="${baseDir}/error/consume-error.log"
+			filePattern="${baseDir}/error/consume-error_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- consume错误日志 -->
+		<RollingFile name="DISPATCH-ERROR-APPENDER" fileName="${baseDir}/error/dispatch-error.log"
+			filePattern="${baseDir}/error/dispatch-error_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%d|%m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- dubbo日志 -->
+		<RollingFile name="DUBBO-APPENDER" fileName="${baseDir}/dubbo/dubbo.log"
+			filePattern="${baseDir}/dubbo/dubbo_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- DEBUG日志，调试日志，所有com.coderjerry.eds下未指定的日志 -->
+		<RollingFile name="DEBUG-APPENDER" fileName="${baseDir}/debug/debug.log"
+			filePattern="${baseDir}/debug/debug_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- for test -->
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%X{requestId} %d %p %c [%t] %m%n" />
+		</Console>
+		<RollingFile name="DISPATCH-APPENDER" fileName="${baseDir}/dispatch/dispatch.log"
+			filePattern="${baseDir}/dispatch/dispatch_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingFile name="CONSUME-APPENDER" fileName="${baseDir}/consume/consume.log"
+			filePattern="${baseDir}/consume/consume_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- 连续消费天数入库日志 -->
+		<RollingFile name="IDX-CONSUM-DAY-APPENDER" fileName="${baseDir}/data/consume_day.log"
+			filePattern="${baseDir}/data/consume_day_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- <RollingFile name="ALL-APPENDER" fileName="${baseDir}/all/all.log" 
+			filePattern="${baseDir}/all/all_%d{yyyy-MM-dd}.log"> <PatternLayout> <Pattern>%d 
+			%p %c [%t] %m%n</Pattern> </PatternLayout> <TimeBasedTriggeringPolicy /> 
+			</RollingFile> -->
+		<RollingFile name="CAMEL-APPENDER" fileName="${baseDir}/camel/camel.log"
+			filePattern="${baseDir}/camel/camel_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId} %d %p %c{1.} [%t] %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- kafka稳定性未知，增加日志方便查询 -->
+		<RollingFile name="KAFKA-APPENDER" fileName="${baseDir}/kafka/kafka.log"
+			filePattern="${baseDir}/kafka/kafka_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- 其他框架日志 -->
+		<RollingFile name="FRAMEWORK-APPENDER" fileName="${baseDir}/framework/framework.log"
+			filePattern="${baseDir}/framework/framework_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingFile name="MONGO-APPENDER" fileName="${baseDir}/mongo/mongo.log"
+      filePattern="${baseDir}/mongo/mongo_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+    <!-- redis -->
+    <RollingFile name="CACHE-APPENDER" fileName="${baseDir}/cache/cache.log"
+      filePattern="${baseDir}/cache/cache_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+    <RollingFile name="DAO-APPENDER" fileName="${baseDir}/dao/dao.log"
+      filePattern="${baseDir}/dao/dao_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%c{1.}|%d|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+		<!-- eds-client 错误日志 -->
+		<RollingFile name="CLIENT-ERROR-APPENDER"
+			fileName="${baseDir}/eds-client/error/error.log"
+			filePattern="${baseDir}/eds-client/error/error_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingFile name="CLIENT-DEBUG-APPENDER"
+			fileName="${baseDir}/eds-client/debug/debug.log"
+			filePattern="${baseDir}/eds-client/debug/debug_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{requestId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingRandomAccessFile name="DRUID-APPENDER" fileName="${baseDir}/druid/druid.log"
+      filePattern="${baseDir}/druid/druid_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%d|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+    <!-- 业务处理日志 -->
+    <RollingRandomAccessFile name="LOGIC-APPENDER" fileName="${baseDir}/logic/logic.log"
+      filePattern="${baseDir}/logic/logic_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="ACTIVEMQ-APPENDER" fileName="${baseDir}/activemq/activemq.log"
+      filePattern="${baseDir}/activemq/activemq_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%p|%t|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="PERF-DISPATCHER-APPENDER" fileName="${baseDir}/perf/dispatcher/dispatcher_perf.log"
+      filePattern="${baseDir}/perf/dispatcher/dispatcher_perf_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%t|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="PERF-CONSUMER-APPENDER" fileName="${baseDir}/perf/consumer/consumer_perf.log"
+      filePattern="${baseDir}/perf/consumer/consumer_perf_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{requestId}|%d|%t|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingRandomAccessFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- eds-client 由于嵌在eds-consumer中，如果additivity为true会进到eds-consumer的debug日志中 -->
+		<logger name="com.coderjerry.eds.client" additivity="true" level="DEBUG">
+			<appender-ref ref="CLIENT-DEBUG-APPENDER" />
+			<appender-ref ref="CLIENT-ERROR-APPENDER" />
+		</logger>
+		
+		<logger name="com.coderjerry.eds.consumer.logic.IdxConsumeDayConsumer" additivity="true"
+			level="INFO">
+			<appender-ref ref="IDX-CONSUM-DAY-APPENDER" />
+		</logger>
+		<logger name="com.coderjerry.eds.consumer.mybatis.mapper" additivity="true" level="DEBUG">
+      <appender-ref ref="DAO-APPENDER" />
+    </logger>
+    <logger name="druid.stat" additivity="true" level="INFO">
+      <appender-ref ref="DAO-APPENDER" />
+    </logger>
+		<logger name="com.coderjerry.eds" additivity="true" level="DEBUG">
+			<appender-ref ref="DEBUG-APPENDER" />
+		</logger>
+		<logger name="dispatchLogger" additivity="true" level="INFO">
+			<appender-ref ref="DISPATCH-APPENDER" />
+		</logger>
+		<logger name="consumeLogger" additivity="true" level="INFO">
+			<appender-ref ref="CONSUME-APPENDER" />
+		</logger>
+		<logger name="org.apache.camel" additivity="true" level="INFO">
+			<appender-ref ref="CAMEL-APPENDER" />
+		</logger>
+		<logger name="DUBBO-PERF" additivity="true" level="INFO">
+			<appender-ref ref="DUBBO-APPENDER" />
+		</logger>
+		<logger name="dispatchError" additivity="false" level="INFO">
+			<appender-ref ref="DISPATCH-ERROR-APPENDER" />
+		</logger>
+		<logger name="consumeError" additivity="false" level="INFO">
+			<appender-ref ref="CONSUME-ERROR-APPENDER" />
+		</logger>
+		<logger name="ERROR-LOGGER" additivity="false" level="ERROR">
+			<appender-ref ref="ERROR-APPENDER" />
+		</logger>
+		<logger name="com.coderjerry.eds.consumer.aop.MongoAspect" additivity="false" level="INFO">
+      <appender-ref ref="MONGO-APPENDER" />
+    </logger>
+    <logger name="com.coderjerry.eds.consumer.aop.CacheLogAspect" additivity="false" level="INFO">
+      <appender-ref ref="CACHE-APPENDER" />    
+    </logger>
+    <!-- druid 监控 -->
+    <logger name="com.alibaba.druid" additivity="false"
+      level="INFO">
+      <appender-ref ref="DRUID-APPENDER" />
+      <appender-ref ref="ERROR-APPENDER" />
+    </logger>
+    <logger name="com.coderjerry.eds.consumer.aop.LogicConsumerAspect" additivity="false"
+      level="INFO">
+      <appender-ref ref="LOGIC-APPENDER" />
+      <appender-ref ref="ERROR-APPENDER" />
+    </logger>
+		<!-- 日志过滤 -->
+		<logger name="kafka" additivity="true" level="INFO">
+			<appender-ref ref="KAFKA-APPENDER" />
+		</logger>
+		<logger name="com.alibaba.dubbo" additivity="true" level="WARN">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="com.alibaba.zookeeper" additivity="true" level="WARN">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="org.I0Itec.zkclient" additivity="true" level="WARN">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="org.apache.zookeeper" additivity="true" level="WARN">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="org.springframework" additivity="true" level="DEBUG">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="org.apache.activemq" additivity="false" level="DEBUG">
+      <appender-ref ref="ACTIVEMQ-APPENDER" />
+      <appender-ref ref="ERROR-APPENDER" />
+    </logger>
+    <logger name="org.springframework.jms" additivity="true" level="INFO">
+      <appender-ref ref="ACTIVEMQ-APPENDER" />
+      <appender-ref ref="ERROR-APPENDER" />
+    </logger>
+		<logger name="gearman" additivity="true" level="WARN">
+			<appender-ref ref="FRAMEWORK-APPENDER" />
+		</logger>
+		<logger name="PERF-DISPATCHER" additivity="false" level="INFO">
+      <appender-ref ref="PERF-DISPATCHER-APPENDER" />
+    </logger>
+    <logger name="PERF-CONSUMER" additivity="false" level="INFO">
+      <appender-ref ref="PERF-CONSUMER-APPENDER" />
+    </logger>
+    <logger name="org.mongodb.driver.cluster" level="INFO">
+    </logger>
+		<Root level="DEBUG">
+		  <appender-ref ref="STDOUT"/>
+			<appender-ref ref="ERROR-APPENDER" />
+		</Root>
+	</Loggers>
+</Configuration>

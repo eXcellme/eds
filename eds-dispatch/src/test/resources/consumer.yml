@@ -1,0 +1,17 @@
+consumers:
+  list:
+   - name: demo1Consumer
+     from: l.demo1
+     fromProtocol: activemq
+     concurrencyMin: 2
+     concurrencyMax: 20 
+     type: internal
+     processor: demo1Consumer
+     options: concurrentConsumers=1&maxConcurrentConsumers=20
+   - name: demo2Consumer
+     from: l.demo2
+     fromProtocol: activemq
+     concurrencyMin: 2
+     concurrencyMax: 20
+     type: internal
+     processor: demo2Consumer

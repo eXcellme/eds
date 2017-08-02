@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" strict="true" name="edsConf" monitorInterval="5">
+	<Properties>
+		<Property name="baseDir">/data/www/logs/eds/client</Property>
+	</Properties>
+	<Appenders>
+		<!-- 错误日志 -->
+		<RollingFile name="ERROR-APPENDER"
+			fileName="${baseDir}/error/error.log"
+			filePattern="${baseDir}/error/error_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{reqId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- DEFAULT日志，所有未指定的日志-->
+		<RollingFile name="DEBUG-APPENDER" fileName="${baseDir}/debug/debug.log"
+			filePattern="${baseDir}/debug/debug_%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>%X{reqId}|%d|%m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+		<RollingFile name="TEST-APPENDER" fileName="${baseDir}/test/test.log"
+      filePattern="${baseDir}/test/test_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{reqId}|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+    <RollingFile name="ACTIVEMQ-APPENDER" fileName="${baseDir}/activemq/activemq.log"
+      filePattern="${baseDir}/activemq/activemq_%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <Pattern>%X{reqId}|%d|%p|%t|%l|%m%n</Pattern>
+      </PatternLayout>
+      <TimeBasedTriggeringPolicy />
+    </RollingFile>
+		<!-- for test -->
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d %p %c{1.} [%t] %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<logger name="com.coderjerry.eds.client" additivity="true" level="DEBUG">
+			<appender-ref ref="DEBUG-APPENDER" />
+			<appender-ref ref="ERROR-APPENDER" />
+		</logger>
+		<logger name="test_eds" additivity="false" level="DEBUG">
+      <appender-ref ref="TEST-APPENDER" />
+    </logger>
+		<logger name="org.apache.activemq" additivity="false" level="DEBUG">
+      <appender-ref ref="ACTIVEMQ-APPENDER" />
+    </logger>
+		<Root level="DEBUG">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
+</Configuration>

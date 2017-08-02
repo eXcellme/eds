@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration
+  status="info" strict="true" name="edsConf"
+  monitorInterval="5">
+  <Properties>
+    <Property name="baseDir">/data/www/logs/eds-consumer-test</Property>
+  </Properties>
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%X{requestId} %d %p %c [%t] %m%n" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="DEBUG">
+      <appender-ref ref="STDOUT" />
+    </Root>
+  </Loggers>
+</Configuration>
