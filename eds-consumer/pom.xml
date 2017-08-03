@@ -67,6 +67,7 @@
 				<eds-client.activemq.brokerUrl><![CDATA[tcp://192.168.3.103:61618]]></eds-client.activemq.brokerUrl>
 				<eds-client.activemq.concurrent>2</eds-client.activemq.concurrent>
 				<eds-client.activemq.redoFileName>${log.parent}eds-consumer-dev/eds-client/redo/mapdb</eds-client.activemq.redoFileName>
+				<prop.spring.profiles.active>dev</prop.spring.profiles.active>
 			</properties>
 		</profile>
 	</profiles>
