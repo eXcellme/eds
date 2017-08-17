@@ -148,7 +148,7 @@ public class EdsTest {
 	public void testConcurrentPublish() throws InterruptedException, IOException {
     startConsumer();
 
-    final int threadNumber = 10 ,msgsPerThread = 10;
+    final int threadNumber = 2 ,msgsPerThread = 2;
     Properties props = new Properties();
     props.setProperty("activemq.brokerUrl",brokerUrl);
     props.setProperty("activemq.publisher.concurrent", "5");

@@ -9,7 +9,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>eds-consumer</artifactId>
 	<name>eds-consumer</name>
-	<packaging>war</packaging>
+	<!--<packaging>war</packaging>-->
+	<packaging>jar</packaging>
 	<!-- spring boot for test -->
 	<!-- <packaging>jar</packaging> -->
 	<properties>
@@ -26,20 +27,18 @@
 			<properties>
 				<prop.jms.userName>system</prop.jms.userName>
 				<prop.jms.password>manage</prop.jms.password>
-				<prop.jms.brokerUrl><![CDATA[tcp://192.168.3.103:61618]]></prop.jms.brokerUrl>
+				<prop.jms.brokerUrl><![CDATA[tcp://localhost:61618]]></prop.jms.brokerUrl>
+				<!-- eds client -->
+				<eds-client.activemq.brokerUrl><![CDATA[tcp://localhost:61618]]></eds-client.activemq.brokerUrl>
+				<!-- eds client activemq concurrent level -->
+				<eds-client.activemq.concurrent>2</eds-client.activemq.concurrent>
+				<!-- eds client mapdb redo file -->
+				<eds-client.activemq.redoFileName>${log.parent}eds-consumer-dev/eds-client/redo/mapdb</eds-client.activemq.redoFileName>
+				<!-- eds client processor (disruptor workpool processors) -->
+				<eds-client.publishManager.processors>2</eds-client.publishManager.processors>
 
-				<prop.redisHost>192.168.3.91</prop.redisHost>
-				<prop.redisPort>6380</prop.redisPort>
-				<prop.redisPass>paypay</prop.redisPass>
-				<prop.redisTimeout>6000</prop.redisTimeout>
-				<prop.redisMaxActive>100</prop.redisMaxActive>
-				<prop.redisMaxIdle>100</prop.redisMaxIdle>
-				<prop.redisMaxWait>600000</prop.redisMaxWait>
-				<prop.redisTestOnBorrow>true</prop.redisTestOnBorrow>
-
-				<prop.kafkaAddress><![CDATA[192.168.3.76:9092?zookeeperHost=192.168.3.76&zookeeperPort=2181&groupId=group1&topic=]]></prop.kafkaAddress>
-
-				<prop.gearmanAddress><![CDATA[192.168.3.197:4730]]></prop.gearmanAddress>
+				<prop.kafkaAddress><![CDATA[localhost:9092?zookeeperHost=localhost&zookeeperPort=2181&groupId=group1&topic=]]></prop.kafkaAddress>
+				<prop.gearmanAddress><![CDATA[localhost:4730]]></prop.gearmanAddress>
 				<!-- jdbc -->
 				<prop.jdbc.url>jdbc:h2:~/test</prop.jdbc.url>
 				<prop.jdbc.username>sa</prop.jdbc.username>
@@ -63,10 +62,7 @@
 				<prop.jdbc.timeBetweenLogStatsMillis>1800000</prop.jdbc.timeBetweenLogStatsMillis>
 				<prop.jdbc.phyTimeoutMillis>100000</prop.jdbc.phyTimeoutMillis>
 				<prop.jdbc.maxEvictableIdleTimeMillis>100000</prop.jdbc.maxEvictableIdleTimeMillis>
-				<!-- eds client配置 -->
-				<eds-client.activemq.brokerUrl><![CDATA[tcp://192.168.3.103:61618]]></eds-client.activemq.brokerUrl>
-				<eds-client.activemq.concurrent>2</eds-client.activemq.concurrent>
-				<eds-client.activemq.redoFileName>${log.parent}eds-consumer-dev/eds-client/redo/mapdb</eds-client.activemq.redoFileName>
+
 				<prop.spring.profiles.active>dev</prop.spring.profiles.active>
 			</properties>
 		</profile>
@@ -369,11 +365,21 @@
 					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
-				<configuration> <mainClass>org.apache.camel.spring.boot.FatJarRouter</mainClass> 
-				</configuration> <executions> <execution> <goals> <goal>repackage</goal> 
-				</goals> </execution> </executions> </plugin> -->
-
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<configuration>
+					<mainClass>com.coderjerry.eds.Application</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

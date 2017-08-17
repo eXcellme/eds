@@ -19,7 +19,9 @@ import com.lmax.disruptor.dsl.ProducerType;
 public class DisruptorDemoTest {
   
   public static void main(String[] args) {
+    // 环形缓冲大小
     final int ringBufferSize = 1024 * 1024 * 8 ;
+    // 等待策略，
     final WaitStrategy waitStrategy = new BlockingWaitStrategy();
     
     ExecutorService executor = Executors.newSingleThreadExecutor(
@@ -29,7 +31,10 @@ public class DisruptorDemoTest {
     
     
     final Disruptor<RingBufferEventDemo> disruptor ;
-    disruptor = new Disruptor<>(RingBufferEventDemo.FACTORY, ringBufferSize, executor,ProducerType.MULTI,waitStrategy);
+    disruptor = new Disruptor<>(RingBufferEventDemo.FACTORY, ringBufferSize,
+        new ThreadFactoryBuilder().setNameFormat("disruptor-executor-%d")
+            .build(),
+        ProducerType.MULTI,waitStrategy);
     disruptor.handleEventsWith(new RingBufferEventHandlerDemo());
     disruptor.start();    
     

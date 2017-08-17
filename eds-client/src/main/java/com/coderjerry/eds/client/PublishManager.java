@@ -45,7 +45,9 @@ class PublishManager implements LifeCycle {
   private static ExecutorService executor;
 
   private void initDisruptor(int processors, int ringBufferSize) {
-    LOG.info("eds client init disruptor with processors="+processors+" and ringBufferSize="+ringBufferSize);
+    LOG.info("eds client init disruptor with processors="
+        + processors + " and ringBufferSize=" + ringBufferSize);
+
     executor = Executors.newFixedThreadPool(
         processors,
         new ThreadFactoryBuilder().setNameFormat("disruptor-executor-%d").build());

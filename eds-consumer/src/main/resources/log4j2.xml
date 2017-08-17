@@ -3,7 +3,7 @@
 	status="info" strict="true" name="edsConf"
 	monitorInterval="5">
 	<Properties>
-		<Property name="baseDir">/data/www/logs/eds-consumer-${sys:spring.profiles.active}</Property>
+		<Property name="baseDir">/apps/logs/eds-consumer-${prop.spring.profiles.active}</Property>
 	</Properties>
 	<Appenders>
 		<!-- 错误日志 -->
@@ -277,10 +277,10 @@
     <logger name="PERF-CONSUMER" additivity="false" level="INFO">
       <appender-ref ref="PERF-CONSUMER-APPENDER" />
     </logger>
-    <logger name="org.mongodb.driver.cluster" level="INFO">
-    </logger>
+    <logger name="org.mongodb.driver.cluster" level="INFO"></logger>
+		<logger name="org.springframework" level="INFO"></logger>
 		<Root level="DEBUG">
-		  <appender-ref ref="STDOUT"/>
+		  <appender-ref ref="STDOUT" />
 			<appender-ref ref="ERROR-APPENDER" />
 		</Root>
 	</Loggers>
